@@ -1,6 +1,6 @@
-﻿# LntuOnline Restful Server API 2.0 [中文](README_CN.md) #
- 
-More elegant to invoke service for LntuOnline.
+# LntuOnline Restful Server API 2.0 [中文](README_CN.md) #
+
+A more elegant way to invoke service from LntuOnline.
 
 ## Home page ##
 
@@ -10,9 +10,9 @@ More elegant to invoke service for LntuOnline.
 
 - [Maven](http://maven.apache.org) or [Gradle](http://gradle.org)
 
-- [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 6 or newer
+- [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 6 or later
 
-- Servlet 3.0 or newer
+- Servlet 3.0 or later
 
 - [MySql](http://www.mysql.com) or [MariaDB](https://mariadb.org)
 
@@ -61,15 +61,15 @@ Licensed under General Public License version 2 ([GPLv2](http://www.gnu.org/lice
 
 Notice that we have some added requirement that you mast be complyed with if you use this source code :
 
-- Do not publish a third party api service. If you want, please use official api service and contact author.
+- Do not publish it as a third party api service. Please contact [author](mailto:takwolf@foxmail.com) before using official api service.
 
-- Do not submit a production to Any form of competitions or exhibitions.
+- Do not submit it as a binary in any form for competitions or exhibitions.
 
 ## Help us ##
 
 - Contribute to your code on github to make an improve and star it if your like.
 
-- Donate please see [this](https://online.lntu.org).
+- Donate please see [this](https://online.lntu.org/about/).
 
 ## Author ##
 
