@@ -14,7 +14,7 @@ More elegant to invoke service for LntuOnline.
 
 - Servlet 3.0 or newer
 
-- [MySql](http://www.mysql.com) or [Mariadb](https://mariadb.org)
+- [MySql](http://www.mysql.com) or [MariaDB](https://mariadb.org)
 
 ## Package ##
 

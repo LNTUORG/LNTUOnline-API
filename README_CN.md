@@ -14,7 +14,7 @@
 
 - Servlet 3.0 以上
 
-- [MySql](http://www.mysql.com) 或者 [Mariadb](https://mariadb.org)
+- [MySql](http://www.mysql.com) 或者 [MariaDB](https://mariadb.org)
 
 ## 打包 ##
 
