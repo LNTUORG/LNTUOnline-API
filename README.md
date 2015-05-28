@@ -69,7 +69,7 @@ Notice that we have some added requirement that you mast be complyed with if you
 
 - Contribute to your code on github to make an improve and star it if your like.
 
-- Donate please see [this](https://online.lntu.org/about/).
+- To donate please read [this](https://online.lntu.org/about/).
 
 ## Author ##
 
