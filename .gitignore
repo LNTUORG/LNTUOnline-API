@@ -1,0 +1,12 @@
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+/build
+.gradle/
+/target
+#End with Intellij
+
+/src/main/resources/config.properties
