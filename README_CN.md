@@ -10,11 +10,11 @@
 
 - [Maven](http://maven.apache.org) 或者 [Gradle](http://gradle.org)
 
-- JDK 6 以上
+- [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 6 以上
 
 - Servlet 3.0 以上
 
-- [MySql](http://www.mysql.com) 或者 [Mariadb](https://mariadb.org)
+- [MySql](http://www.mysql.com) 或者 [MariaDB](https://mariadb.org)
 
 ## 打包 ##
 
