@@ -21,12 +21,12 @@
 package com.lntu.online.server.dao;
 
 import com.jfinal.plugin.activerecord.Model;
-import com.lntu.online.server.app.AppConfig;
+import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.model.UserType;
 import com.lntu.online.server.util.TextUtils;
 import com.lntu.online.server.util.crypto.DES3;
 import com.lntu.online.server.util.digest.MD5;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
+import com.lntu.online.server.util.digest.SHA256;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -70,7 +70,7 @@ public class User extends Model<User> {
 
     public String getPassword() {
         try {
-            return DES3.decrypt(AppConfig.getSecretKey(), getStr("password"));
+            return DES3.decrypt(SHA256.getMessageDigest(AppConfig.secretKey), getStr("password"));
         } catch (Exception e) {
             return "";
         }
@@ -78,7 +78,7 @@ public class User extends Model<User> {
 
     public void setPassword(String password) {
         try {
-            set("password", DES3.encrypt(AppConfig.getSecretKey(), password));
+            set("password", DES3.encrypt(SHA256.getMessageDigest(AppConfig.secretKey), password));
         } catch (Exception e) {
             set("password", "");
         }
