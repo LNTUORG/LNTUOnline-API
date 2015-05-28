@@ -10,7 +10,7 @@ More elegant to invoke service for LntuOnline.
 
 - [Maven](http://maven.apache.org) or [Gradle](http://gradle.org)
 
-- JDK 6 or newer
+- [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 6 or newer
 
 - Servlet 3.0 or newer
 

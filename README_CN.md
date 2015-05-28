@@ -10,7 +10,7 @@
 
 - [Maven](http://maven.apache.org) 或者 [Gradle](http://gradle.org)
 
-- JDK 6 以上
+- [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 6 以上
 
 - Servlet 3.0 以上
 
