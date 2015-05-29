@@ -10,3 +10,4 @@ out/
 #End with Intellij
 
 /src/main/resources/config.properties
+system.properties
