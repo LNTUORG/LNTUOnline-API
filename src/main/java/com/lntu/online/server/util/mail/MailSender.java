@@ -18,14 +18,14 @@
  *
  */
 
-package com.lntu.online.server.app;
+package com.lntu.online.server.util.mail;
 
-import com.lntu.online.server.util.mail.MailSender;
+import com.lntu.online.server.config.AppConfig;
 
-public class Main {
+public class MailSender {
 
-    public static void main(String[] args) {
-        System.out.println("你好，世界");
+    public static void send(String to, String subject, String content) {
+        Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
     }
 
 }
