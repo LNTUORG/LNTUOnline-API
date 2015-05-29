@@ -18,16 +18,14 @@
  *
  */
 
-package com.lntu.online.server.util;
+package com.lntu.online.server.util.mail;
 
-public class TextUtils {
+import com.lntu.online.server.config.AppConfig;
 
-    public static boolean isEmpty(CharSequence str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+public class MailSender {
+
+    public static void send(String to, String subject, String content) {
+        Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
     }
 
 }

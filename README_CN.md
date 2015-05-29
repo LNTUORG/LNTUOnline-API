@@ -1,4 +1,4 @@
-# 辽工大教务在线 - Restful API 2.0 [English](README.md) #
+# 辽工大教务在线 - Restful API [English](README.md) #
 
 更加优雅的教务在线调用接口。
 

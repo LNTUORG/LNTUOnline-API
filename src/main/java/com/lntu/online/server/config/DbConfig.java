@@ -18,16 +18,22 @@
  *
  */
 
-package com.lntu.online.server.util;
+package com.lntu.online.server.config;
 
-public class TextUtils {
+import java.util.Properties;
 
-    public static boolean isEmpty(CharSequence str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+public final class DbConfig {
+
+    public final String jdbcUrl;
+    public final String driverClass;
+    public final String username;
+    public final String password;
+
+    protected DbConfig(Properties properties) {
+        jdbcUrl = properties.getProperty("db.jdbcUrl", "jdbc:mysql://localhost:3306/lntuonline");
+        driverClass = properties.getProperty("db.driverClass", "com.mysql.jdbc.Driver");
+        username = properties.getProperty("db.username", "root");
+        password = properties.getProperty("db.password", "123");
     }
 
 }

@@ -18,16 +18,14 @@
  *
  */
 
-package com.lntu.online.server.util;
+package com.lntu.online.server.app;
 
-public class TextUtils {
+import com.lntu.online.server.util.mail.MailSender;
 
-    public static boolean isEmpty(CharSequence str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("你好，世界");
     }
 
 }

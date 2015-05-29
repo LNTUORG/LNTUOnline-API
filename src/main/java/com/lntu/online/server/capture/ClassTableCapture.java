@@ -20,7 +20,7 @@
 
 package com.lntu.online.server.capture;
 
-import com.lntu.online.server.app.AppConfig;
+import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.exception.ArgsErrorException;
 import com.lntu.online.server.model.ClassTable;
 import com.lntu.online.server.model.DayInWeek;
@@ -49,7 +49,7 @@ public class ClassTableCapture {
         classTable.setStudentId(userId);
         classTable.setYear(year);
         classTable.setTerm(term);
-        classTable.setFirstWeekMondayAt(AppConfig.getFirstWeekMondayAt());
+        classTable.setFirstWeekMondayAt(AppConfig.firstWeekMondayAt);
 
         List<ClassTable.Course> courseList = new ArrayList<ClassTable.Course>();
 
