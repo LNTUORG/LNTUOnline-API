@@ -1,4 +1,4 @@
-# LntuOnline Restful Server API 2.0 [中文](README_CN.md) #
+# LntuOnline Restful Server API [中文](README_CN.md) #
 
 A more elegant way to invoke service from LntuOnline.
 

@@ -15,18 +15,27 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
  */
 
-package com.lntu.online.server.util;
+package com.lntu.online.server.config;
 
-public class TextUtils {
+import java.util.Properties;
 
-    public static boolean isEmpty(CharSequence str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+public final class MailConfig {
+
+    public final boolean enable;
+    public final String smtp;
+    public final String from;
+    public final String username;
+    public final String password;
+
+    protected MailConfig(Properties properties) {
+        enable = Boolean.parseBoolean(properties.getProperty("mail.enable", "false"));
+        smtp = properties.getProperty("mail.smtp", "SMTP.lntu.org");
+        from = properties.getProperty("mail.from", "online@lntu.org");
+        username = properties.getProperty("mail.username", "online@lntu.org");
+        password = properties.getProperty("mail.password", "123");
     }
 
 }

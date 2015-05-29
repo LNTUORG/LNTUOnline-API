@@ -15,18 +15,17 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
  */
 
-package com.lntu.online.server.util;
+package com.lntu.online.server.app;
 
-public class TextUtils {
+import com.lntu.online.server.util.mail.MailSender;
 
-    public static boolean isEmpty(CharSequence str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("你好，世界");
     }
 
 }

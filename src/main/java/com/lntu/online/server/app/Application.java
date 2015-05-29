@@ -22,6 +22,7 @@ package com.lntu.online.server.app;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
+import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.dao.User;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -37,8 +38,8 @@ public class Application extends ResourceConfig {
         packages(ROOT_PACKAGES);
         register(LoggingFilter.class);
 
-        C3p0Plugin c3p0Plugin = new C3p0Plugin(AppConfig.getJdbcUrl(), AppConfig.getUsername(), AppConfig.getPassword());
-        c3p0Plugin.setDriverClass(AppConfig.getDriverClass());
+        C3p0Plugin c3p0Plugin = new C3p0Plugin(AppConfig.db.jdbcUrl, AppConfig.db.username, AppConfig.db.password);
+        c3p0Plugin.setDriverClass(AppConfig.db.driverClass);
         c3p0Plugin.start();
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin(c3p0Plugin);
         activeRecordPlugin.setDialect(new MysqlDialect());
