@@ -70,89 +70,91 @@ public class ClassTableCapture {
 
             // 时间位置列表
             List<ClassTable.TimeAndPlace> timeAndPlaceList = new ArrayList<ClassTable.TimeAndPlace>();
-            for (Element tr : element.child(9).child(0).child(0).children()) {
-                // 基本参数
-                int startWeek;
-                int endWeek;
-                String room;
-                DayInWeek dayInWeek;
-                // 始终周数
-                String weekSE = tr.child(0).text();
-                if ("-".equals(weekSE) || TextUtils.isEmpty(weekSE)) { // 地点未定
-                    continue;
-                }
-                String[] weeks = weekSE.split("-");
-                if (weeks.length == 2) { // 包含始终
-                    startWeek = Integer.parseInt(weeks[0]);
-                    endWeek = Integer.parseInt(weeks[1]);
-                } else { // 只有一个数字
-                    startWeek = Integer.parseInt(weeks[0]);
-                    endWeek = Integer.parseInt(weeks[0]);
-                }
-                // 星期几
-                String strDayInWeek = tr.child(1).text();
-                if ("\u5468\u4e00".equals(strDayInWeek)) { // Unicode=周一
-                    dayInWeek = DayInWeek.Monday;
-                } else if ("\u5468\u4e8c".equals(strDayInWeek)) { // Unicode=周二
-                    dayInWeek = DayInWeek.Tuesday;
-                } else if ("\u5468\u4e09".equals(strDayInWeek)) { // Unicode=周三
-                    dayInWeek = DayInWeek.Wednesday;
-                } else if ("\u5468\u56db".equals(strDayInWeek)) { // Unicode=周四
-                    dayInWeek = DayInWeek.Thursday;
-                } else if ("\u5468\u4e94".equals(strDayInWeek)) { // Unicode=周五
-                    dayInWeek = DayInWeek.Friday;
-                } else if ("\u5468\u516d".equals(strDayInWeek)) { // Unicode=周六
-                    dayInWeek = DayInWeek.Saturday;
-                } else
-                    dayInWeek = DayInWeek.Sunday;
-                // 地点
-                room = tr.child(3).text();
-                // 大节课程
-                String strStage = tr.child(2).text();
-                if (strStage.contains("\u4e00")) { // Unicode=一
-                    ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
-                    timeAndPlace.setStartWeek(startWeek);
-                    timeAndPlace.setEndWeek(endWeek);
-                    timeAndPlace.setDayInWeek(dayInWeek);
-                    timeAndPlace.setRoom(room);
-                    timeAndPlace.setStage(1);
-                    timeAndPlaceList.add(timeAndPlace);
-                }
-                if (strStage.contains("\u4e8c")) { // Unicode=二
-                    ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
-                    timeAndPlace.setStartWeek(startWeek);
-                    timeAndPlace.setEndWeek(endWeek);
-                    timeAndPlace.setDayInWeek(dayInWeek);
-                    timeAndPlace.setRoom(room);
-                    timeAndPlace.setStage(2);
-                    timeAndPlaceList.add(timeAndPlace);
-                }
-                if (strStage.contains("\u4e09")) { // Unicode=三
-                    ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
-                    timeAndPlace.setStartWeek(startWeek);
-                    timeAndPlace.setEndWeek(endWeek);
-                    timeAndPlace.setDayInWeek(dayInWeek);
-                    timeAndPlace.setRoom(room);
-                    timeAndPlace.setStage(3);
-                    timeAndPlaceList.add(timeAndPlace);
-                }
-                if (strStage.contains("\u56db")) { // Unicode=四
-                    ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
-                    timeAndPlace.setStartWeek(startWeek);
-                    timeAndPlace.setEndWeek(endWeek);
-                    timeAndPlace.setDayInWeek(dayInWeek);
-                    timeAndPlace.setRoom(room);
-                    timeAndPlace.setStage(4);
-                    timeAndPlaceList.add(timeAndPlace);
-                }
-                if (strStage.contains("\u4e94")) { // Unicode=五
-                    ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
-                    timeAndPlace.setStartWeek(startWeek);
-                    timeAndPlace.setEndWeek(endWeek);
-                    timeAndPlace.setDayInWeek(dayInWeek);
-                    timeAndPlace.setRoom(room);
-                    timeAndPlace.setStage(5);
-                    timeAndPlaceList.add(timeAndPlace);
+            if (element.child(9).child(0).children().size() > 0) { // 有的table->tbody下面没有tr标签
+                for (Element tr : element.child(9).child(0).child(0).children()) {
+                    // 基本参数
+                    int startWeek;
+                    int endWeek;
+                    String room;
+                    DayInWeek dayInWeek;
+                    // 始终周数
+                    String weekSE = tr.child(0).text();
+                    if ("-".equals(weekSE) || TextUtils.isEmpty(weekSE)) { // 地点未定
+                        continue;
+                    }
+                    String[] weeks = weekSE.split("-");
+                    if (weeks.length == 2) { // 包含始终
+                        startWeek = Integer.parseInt(weeks[0]);
+                        endWeek = Integer.parseInt(weeks[1]);
+                    } else { // 只有一个数字
+                        startWeek = Integer.parseInt(weeks[0]);
+                        endWeek = Integer.parseInt(weeks[0]);
+                    }
+                    // 星期几
+                    String strDayInWeek = tr.child(1).text();
+                    if ("\u5468\u4e00".equals(strDayInWeek)) { // Unicode=周一
+                        dayInWeek = DayInWeek.Monday;
+                    } else if ("\u5468\u4e8c".equals(strDayInWeek)) { // Unicode=周二
+                        dayInWeek = DayInWeek.Tuesday;
+                    } else if ("\u5468\u4e09".equals(strDayInWeek)) { // Unicode=周三
+                        dayInWeek = DayInWeek.Wednesday;
+                    } else if ("\u5468\u56db".equals(strDayInWeek)) { // Unicode=周四
+                        dayInWeek = DayInWeek.Thursday;
+                    } else if ("\u5468\u4e94".equals(strDayInWeek)) { // Unicode=周五
+                        dayInWeek = DayInWeek.Friday;
+                    } else if ("\u5468\u516d".equals(strDayInWeek)) { // Unicode=周六
+                        dayInWeek = DayInWeek.Saturday;
+                    } else
+                        dayInWeek = DayInWeek.Sunday;
+                    // 地点
+                    room = tr.child(3).text();
+                    // 大节课程
+                    String strStage = tr.child(2).text();
+                    if (strStage.contains("\u4e00")) { // Unicode=一
+                        ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
+                        timeAndPlace.setStartWeek(startWeek);
+                        timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setDayInWeek(dayInWeek);
+                        timeAndPlace.setRoom(room);
+                        timeAndPlace.setStage(1);
+                        timeAndPlaceList.add(timeAndPlace);
+                    }
+                    if (strStage.contains("\u4e8c")) { // Unicode=二
+                        ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
+                        timeAndPlace.setStartWeek(startWeek);
+                        timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setDayInWeek(dayInWeek);
+                        timeAndPlace.setRoom(room);
+                        timeAndPlace.setStage(2);
+                        timeAndPlaceList.add(timeAndPlace);
+                    }
+                    if (strStage.contains("\u4e09")) { // Unicode=三
+                        ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
+                        timeAndPlace.setStartWeek(startWeek);
+                        timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setDayInWeek(dayInWeek);
+                        timeAndPlace.setRoom(room);
+                        timeAndPlace.setStage(3);
+                        timeAndPlaceList.add(timeAndPlace);
+                    }
+                    if (strStage.contains("\u56db")) { // Unicode=四
+                        ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
+                        timeAndPlace.setStartWeek(startWeek);
+                        timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setDayInWeek(dayInWeek);
+                        timeAndPlace.setRoom(room);
+                        timeAndPlace.setStage(4);
+                        timeAndPlaceList.add(timeAndPlace);
+                    }
+                    if (strStage.contains("\u4e94")) { // Unicode=五
+                        ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
+                        timeAndPlace.setStartWeek(startWeek);
+                        timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setDayInWeek(dayInWeek);
+                        timeAndPlace.setRoom(room);
+                        timeAndPlace.setStage(5);
+                        timeAndPlaceList.add(timeAndPlace);
+                    }
                 }
             }
             course.setTimesAndPlaces(timeAndPlaceList);
