@@ -23,6 +23,7 @@ import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.exception.ArgsErrorException;
 import com.lntu.online.server.model.ClassTable;
 import com.lntu.online.server.model.DayInWeek;
+import com.lntu.online.server.model.WeekMode;
 import com.lntu.online.server.util.TextUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -75,20 +76,30 @@ public class ClassTableCapture {
                     // 基本参数
                     int startWeek;
                     int endWeek;
+                    WeekMode weekMode;
                     String room;
                     DayInWeek dayInWeek;
-                    // 始终周数
+                    // 始终周数-包含单双周
                     String weekSE = tr.child(0).text();
                     if ("-".equals(weekSE) || TextUtils.isEmpty(weekSE)) { // 地点未定
                         continue;
                     }
-                    String[] weeks = weekSE.split("-");
+                    String[] weeks = weekSE.replace("单", "").replace("双", "").split("-");
                     if (weeks.length == 2) { // 包含始终
                         startWeek = Integer.parseInt(weeks[0]);
                         endWeek = Integer.parseInt(weeks[1]);
                     } else { // 只有一个数字
                         startWeek = Integer.parseInt(weeks[0]);
                         endWeek = Integer.parseInt(weeks[0]);
+                    }
+                    if (weekSE.contains("单")) {
+                        weekMode = WeekMode.ODD;
+                    }
+                    else if (weekSE.contains("双")) {
+                        weekMode = WeekMode.EVEN;
+                    }
+                    else {
+                        weekMode = WeekMode.ALL;
                     }
                     // 星期几
                     String strDayInWeek = tr.child(1).text();
@@ -114,6 +125,7 @@ public class ClassTableCapture {
                         ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
                         timeAndPlace.setStartWeek(startWeek);
                         timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setWeekMode(weekMode);
                         timeAndPlace.setDayInWeek(dayInWeek);
                         timeAndPlace.setRoom(room);
                         timeAndPlace.setStage(1);
@@ -123,6 +135,7 @@ public class ClassTableCapture {
                         ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
                         timeAndPlace.setStartWeek(startWeek);
                         timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setWeekMode(weekMode);
                         timeAndPlace.setDayInWeek(dayInWeek);
                         timeAndPlace.setRoom(room);
                         timeAndPlace.setStage(2);
@@ -132,6 +145,7 @@ public class ClassTableCapture {
                         ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
                         timeAndPlace.setStartWeek(startWeek);
                         timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setWeekMode(weekMode);
                         timeAndPlace.setDayInWeek(dayInWeek);
                         timeAndPlace.setRoom(room);
                         timeAndPlace.setStage(3);
@@ -141,6 +155,7 @@ public class ClassTableCapture {
                         ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
                         timeAndPlace.setStartWeek(startWeek);
                         timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setWeekMode(weekMode);
                         timeAndPlace.setDayInWeek(dayInWeek);
                         timeAndPlace.setRoom(room);
                         timeAndPlace.setStage(4);
@@ -150,6 +165,7 @@ public class ClassTableCapture {
                         ClassTable.TimeAndPlace timeAndPlace = new ClassTable.TimeAndPlace();
                         timeAndPlace.setStartWeek(startWeek);
                         timeAndPlace.setEndWeek(endWeek);
+                        timeAndPlace.setWeekMode(weekMode);
                         timeAndPlace.setDayInWeek(dayInWeek);
                         timeAndPlace.setRoom(room);
                         timeAndPlace.setStage(5);
