@@ -50,8 +50,8 @@ public class ExamPlanCapture {
             String[] arr1 = arr[1].split("--");
             String strStart = arr1[0];
             String strEnd = arr1[1];
-            exam.setStartTime(new DateTime(strDate + "T" + strStart).toDate());
-            exam.setEndTime(new DateTime(strDate + "T" + strEnd).toDate());
+            exam.setStartTime(new DateTime(strDate + "T" + strStart + "+08:00").toDate());
+            exam.setEndTime(new DateTime(strDate + "T" + strEnd + "+08:00").toDate());
 
             examList.add(exam);
         }

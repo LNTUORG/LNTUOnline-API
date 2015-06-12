@@ -38,7 +38,7 @@ public final class AppConfig {
         try {
             Properties properties = new Properties();
             properties.load(AppConfig.class.getClassLoader().getResourceAsStream(CONFIG_NAME));
-            firstWeekMondayAt = new DateTime(properties.getProperty("firstWeekMondayAt", "2015-3-9")).toDate();
+            firstWeekMondayAt = new DateTime(properties.getProperty("firstWeekMondayAt", "2015-03-09T00:00:00.000+08:00")).toDate();
             secretKey = properties.getProperty("secretKey", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
             db = new DbConfig(properties);
             mail = new MailConfig(properties);
