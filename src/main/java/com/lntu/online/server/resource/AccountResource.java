@@ -40,7 +40,8 @@ public class AccountResource {
     @Path("login")
     public LoginInfo login(
             @FormParam("userId") String userId,
-            @FormParam("password") String password
+            @FormParam("password") String password,
+            @HeaderParam("User-Agent") String userAgent
     ) {
         // 判断参数
         if (TextUtils.isEmpty(userId)) {
@@ -72,6 +73,8 @@ public class AccountResource {
             }
             user.setPassword(password); //更新密码
         }
+        // 更新User-Agent
+        user.setUserAgent(userAgent);
         // 生成LoginInfo
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.setUserId(user.getId());
