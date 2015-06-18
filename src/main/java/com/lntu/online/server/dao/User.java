@@ -99,6 +99,14 @@ public class User extends Model<User> {
         set("type", type.name());
     }
 
+    public String getUserAgent() {
+        return getStr("user_agent");
+    }
+
+    public void setUserAgent(String userAgent) {
+        set("user_agent", userAgent);
+    }
+
     public Date getCreateAt() {
         return getDate("create_at");
     }

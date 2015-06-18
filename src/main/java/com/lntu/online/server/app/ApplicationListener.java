@@ -19,13 +19,20 @@
 
 package com.lntu.online.server.app;
 
-public class Main {
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
-    public static void main(String[] args) {
-        System.out.println("你好，世界");
+@WebListener()
+public class ApplicationListener implements ServletContextListener {
 
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
         DBHelper.start();
+    }
 
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
         DBHelper.stop();
     }
 
