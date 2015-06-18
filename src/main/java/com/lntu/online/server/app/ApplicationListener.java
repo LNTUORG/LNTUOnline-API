@@ -19,19 +19,21 @@
 
 package com.lntu.online.server.app;
 
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.server.ResourceConfig;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
-import javax.ws.rs.ApplicationPath;
+@WebListener()
+public class ApplicationListener implements ServletContextListener {
 
-@ApplicationPath("/*")
-public class Application extends ResourceConfig {
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        DBHelper.start();
+    }
 
-    private static final String ROOT_PACKAGES = "com.lntu.online.server";
-
-    public Application() {
-        packages(ROOT_PACKAGES);
-        register(LoggingFilter.class);
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        DBHelper.stop();
     }
 
 }

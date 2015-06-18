@@ -43,8 +43,8 @@ public final class DBHelper {
     }
 
     public static void stop() {
-        activeRecordPlugin.stop();
-        c3p0Plugin.stop();
+        // activeRecordPlugin.stop();
+        // c3p0Plugin.stop();
     }
 
 }
