@@ -24,21 +24,27 @@ import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.dao.User;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.server.ResourceConfig;
 
-import javax.ws.rs.ApplicationPath;
+public final class DBHelper {
 
-@ApplicationPath("/*")
-public class Application extends ResourceConfig {
+    private DBHelper() {}
 
-    private static final String ROOT_PACKAGES = "com.lntu.online.server";
+    private static C3p0Plugin c3p0Plugin;
+    private static ActiveRecordPlugin activeRecordPlugin;
 
-    public Application() {
-        packages(ROOT_PACKAGES);
-        register(LoggingFilter.class);
+    public static void start() {
+        c3p0Plugin = new C3p0Plugin(AppConfig.db.jdbcUrl, AppConfig.db.username, AppConfig.db.password);
+        c3p0Plugin.setDriverClass(AppConfig.db.driverClass);
+        c3p0Plugin.start();
+        activeRecordPlugin = new ActiveRecordPlugin(c3p0Plugin);
+        activeRecordPlugin.setDialect(new MysqlDialect());
+        activeRecordPlugin.addMapping("user", User.class);
+        activeRecordPlugin.start();
+    }
 
-        DBHelper.start();
+    public static void stop() {
+        activeRecordPlugin.stop();
+        c3p0Plugin.stop();
     }
 
 }
