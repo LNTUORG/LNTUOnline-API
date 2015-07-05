@@ -28,7 +28,7 @@ public final class CaptureConfig {
             "http://60.18.131.133:11181/newacademic"
     };
 
-    int currentUrlIndex = new Random().nextInt(4);;
+    private static int currentUrlIndex = new Random().nextInt(4);;
 
     private static final int TIME_OUT = 20000;
 
