@@ -18,7 +18,8 @@
  */
 
 package com.lntu.online.server.capture;
-package java.util.Random;
+
+import java.util.Random;
 
 public final class CaptureConfig {
 
