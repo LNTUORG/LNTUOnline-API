@@ -19,16 +19,18 @@
 
 package com.lntu.online.server.capture;
 
+import java.util.Random;
+
 public final class CaptureConfig {
 
     private static final String[] SERVER_RULS = {
-            "http://60.18.131.131:11180/academic",
             "http://60.18.131.131:11080/newacademic",
+            "http://60.18.131.131:11180/academic",
             "http://60.18.131.133:11180/newacademic",
             "http://60.18.131.133:11181/newacademic"
     };
 
-    private static int currentUrlIndex = 0;
+    private static int currentUrlIndex = new Random().nextInt(4);;
 
     private static final int TIME_OUT = 20000;
 
