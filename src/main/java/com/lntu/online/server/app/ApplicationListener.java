@@ -20,26 +20,43 @@
 package com.lntu.online.server.app;
 
 import com.lntu.online.server.capture.CaptureConfig;
+import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.util.mail.MailSender;
 import org.joda.time.DateTime;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @WebListener()
 public class ApplicationListener implements ServletContextListener {
+
+    private static Timer timer = new Timer();
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         DBHelper.start();
         MailSender.sendToAdmin(MailSender.LEVEL_RUNNING, "启动时间：" + new DateTime().toString() + "<br>远程抓取地址：" + CaptureConfig.getServerUrl());
+        if (AppConfig.admin.enable) {
+            timer.scheduleAtFixedRate(new TimerTask() {
+
+                @Override
+                public void run() {
+                    CaptureConfig.autoFix();
+                }
+
+            }, new Date(), 1000 * 60 * 60);
+        }
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         DBHelper.stop();
         MailSender.sendToAdmin(MailSender.LEVEL_RUNNING, "停止时间：" + new DateTime().toString());
+        timer.cancel();
     }
 
 }
