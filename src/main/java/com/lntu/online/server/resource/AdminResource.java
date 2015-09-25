@@ -17,26 +17,29 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.digest;
+package com.lntu.online.server.resource;
 
-public class SHA512 {
+import com.lntu.online.server.capture.CaptureConfig;
+import com.lntu.online.server.config.AppConfig;
 
-    private static final DigestCoder coder = new DigestCoder("SHA-512");
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-    public static byte[] getRawDigest(byte[] input) {
-        return coder.getRawDigest(input);
-    }
+@Path("admin")
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+public class AdminResource {
 
-    public static byte[] getRawDigest(String input) {
-        return coder.getRawDigest(input);
-    }
-
-    public static String getMessageDigest(byte[] input) {
-        return coder.getMessageDigest(input);
-    }
-
-    public static String getMessageDigest(String input) {
-        return coder.getMessageDigest(input);
+    @GET
+    @Path("auto-fix")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String autoFix() {
+        if (AppConfig.admin.enable) {
+            return CaptureConfig.autoFix();
+        } else {
+            return "系统维护未启用";
+        }
     }
 
 }

@@ -17,26 +17,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.digest;
+package com.lntu.online.server.util.gson;
 
-public class SHA1 {
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
-    private static final DigestCoder coder = new DigestCoder("SHA-1");
+import org.joda.time.DateTime;
 
-    public static byte[] getRawDigest(byte[] input) {
-        return coder.getRawDigest(input);
+import java.lang.reflect.Type;
+
+public class DateTimeTypeAdapter implements JsonSerializer<DateTime>, JsonDeserializer<DateTime> {
+
+    @Override
+    public JsonElement serialize(DateTime src, Type typeOfSrc, JsonSerializationContext context) {
+        return new JsonPrimitive(src.toString());
     }
 
-    public static byte[] getRawDigest(String input) {
-        return coder.getRawDigest(input);
-    }
-
-    public static String getMessageDigest(byte[] input) {
-        return coder.getMessageDigest(input);
-    }
-
-    public static String getMessageDigest(String input) {
-        return coder.getMessageDigest(input);
+    @Override
+    public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        return new DateTime(json.getAsString());
     }
 
 }

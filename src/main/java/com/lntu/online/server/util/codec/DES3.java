@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.crypto;
+package com.lntu.online.server.util.codec;
 
 import java.security.Key;
 
@@ -25,8 +25,6 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.IvParameterSpec;
-
-import com.lntu.online.server.util.coder.Base64;
 
 public class DES3 {
 

@@ -17,26 +17,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.digest;
+package com.lntu.online.server.util;
 
-public class MD2 {
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-    private static final DigestCoder coder = new DigestCoder("MD2");
+public final class ThreadUtils {
 
-    public static byte[] getRawDigest(byte[] input) {
-        return coder.getRawDigest(input);
-    }
+    private ThreadUtils() {}
 
-    public static byte[] getRawDigest(String input) {
-        return coder.getRawDigest(input);
-    }
+    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
 
-    public static String getMessageDigest(byte[] input) {
-        return coder.getMessageDigest(input);
-    }
-
-    public static String getMessageDigest(String input) {
-        return coder.getMessageDigest(input);
+    public static void execute(Runnable r) {
+        threadPool.execute(r);
     }
 
 }
