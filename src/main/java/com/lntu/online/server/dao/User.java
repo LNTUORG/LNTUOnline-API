@@ -23,9 +23,8 @@ import com.jfinal.plugin.activerecord.Model;
 import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.model.UserType;
 import com.lntu.online.server.util.TextUtils;
-import com.lntu.online.server.util.crypto.DES3;
-import com.lntu.online.server.util.digest.MD5;
-import com.lntu.online.server.util.digest.SHA256;
+import com.lntu.online.server.util.codec.DES3;
+import com.lntu.online.server.util.codec.Digest;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class User extends Model<User> {
         if (TextUtils.isEmpty(loginToken)) {
             return null;
         } else {
-            return dao.findFirst("select * from user where login_token = ?", MD5.getMessageDigest(loginToken));
+            return dao.findFirst("select * from user where login_token = ?", Digest.MD5.getMessage(loginToken));
         }
     }
 
@@ -64,12 +63,12 @@ public class User extends Model<User> {
     }
 
     public void setLoginToken(String loginToken) {
-        set("login_token", MD5.getMessageDigest(loginToken));
+        set("login_token", Digest.MD5.getMessage(loginToken));
     }
 
     public String getPassword() {
         try {
-            return DES3.decrypt(SHA256.getMessageDigest(AppConfig.secretKey), getStr("password"));
+            return DES3.decrypt(Digest.SHA256.getMessage(AppConfig.secretKey), getStr("password"));
         } catch (Exception e) {
             return "";
         }
@@ -77,7 +76,7 @@ public class User extends Model<User> {
 
     public void setPassword(String password) {
         try {
-            set("password", DES3.encrypt(SHA256.getMessageDigest(AppConfig.secretKey), password));
+            set("password", DES3.encrypt(Digest.SHA256.getMessage(AppConfig.secretKey), password));
         } catch (Exception e) {
             set("password", "");
         }
@@ -97,6 +96,14 @@ public class User extends Model<User> {
 
     public void setType(UserType type) {
         set("type", type.name());
+    }
+
+    public String getUserAgent() {
+        return getStr("user_agent");
+    }
+
+    public void setUserAgent(String userAgent) {
+        set("user_agent", userAgent);
     }
 
     public Date getCreateAt() {

@@ -29,24 +29,30 @@ public final class AppConfig {
 
     private static final String CONFIG_NAME = "config.properties";
 
-    public static final Date firstWeekMondayAt;
+    private static final Properties properties;
+
     public static final String secretKey;
     public static final DbConfig db;
     public static final MailConfig mail;
+    public static final AdminConfig admin;
 
     static {
         try {
-            Properties properties = new Properties();
+            properties = new Properties();
             properties.load(AppConfig.class.getClassLoader().getResourceAsStream(CONFIG_NAME));
-            firstWeekMondayAt = new DateTime(properties.getProperty("firstWeekMondayAt", "2015-03-09T00:00:00.000+08:00")).toDate();
             secretKey = properties.getProperty("secretKey", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
             db = new DbConfig(properties);
             mail = new MailConfig(properties);
+            admin = new AdminConfig(properties);
         } catch (IOException e) {
             throw new RuntimeException(CONFIG_NAME + " load faild.", e);
         }
     }
 
     private AppConfig() {}
+
+    public static Date getFirstWeekMonday(int year, String term) {
+        return new DateTime(properties.getProperty("firstWeekMonday." + year + "_" + ("春".equals(term) ? 1 : 2), "2000-01-01T00:00:00.000+08:00")).toDate();
+    }
 
 }

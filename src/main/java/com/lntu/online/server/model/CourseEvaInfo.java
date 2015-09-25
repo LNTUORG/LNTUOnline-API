@@ -19,7 +19,7 @@
 
 package com.lntu.online.server.model;
 
-import com.lntu.online.server.util.coder.Base64;
+import com.lntu.online.server.util.codec.Base64;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
