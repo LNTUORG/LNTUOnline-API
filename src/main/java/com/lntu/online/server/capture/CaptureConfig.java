@@ -94,18 +94,18 @@ public final class CaptureConfig {
             System.out.println("Url search failed, please manual check.");
             String content = "维护时间：" + new DateTime().toString() + "<br><br>" + "抓取服务器所有远程地址均不可用，请手动检查。或者1个小时之后系统再次自检";
             MailSender.sendToAdmin(MailSender.LEVEL_LOG, content);
-            return content.replace("<br>", "\n");
+            return content;
         }
         else if (currentUrlIndex == index) {
             System.out.println("Do not change url : " + getServerUrl());
-            return (sbLog.toString() + "<br><br>" + "Do not change url : " + getServerUrl()).replace("<br>", "\n");
+            return sbLog.toString() + "<br><br>" + "Do not change url : " + getServerUrl();
         } else {
             System.out.println("Change url to index " + index + " : " + SERVER_RULS[index]);
             currentUrlIndex = index;
             sbLog.append("<br><br>").append("Change url to index ").append(index).append(" : ").append(getServerUrl());
             String content = "维护时间：" + new DateTime().toString() + "<br><br>" + sbLog.toString();
             MailSender.sendToAdmin(MailSender.LEVEL_LOG, content);
-            return content.replace("<br>", "\n");
+            return content;
         }
     }
 

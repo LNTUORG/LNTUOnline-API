@@ -31,14 +31,17 @@ import javax.ws.rs.core.MediaType;
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class AdminResource {
 
+    private static final String HTML_0 = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
+    private static final String HTML_1 = "</body><html>";
+
     @GET
     @Path("auto-fix")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
     public String autoFix() {
         if (AppConfig.admin.enable) {
-            return CaptureConfig.autoFix();
+            return HTML_0 + CaptureConfig.autoFix() + HTML_1;
         } else {
-            return "系统维护未启用";
+            return HTML_0 + "系统维护未启用" + HTML_1;
         }
     }
 
