@@ -19,19 +19,30 @@
 
 package com.lntu.online.server.resource;
 
+import com.lntu.online.server.capture.CaptureConfig;
+import com.lntu.online.server.config.AppConfig;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/")
+@Path("admin")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-public class HomeResource {
+public class AdminResource {
+
+    private static final String HTML_0 = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
+    private static final String HTML_1 = "</body><html>";
 
     @GET
+    @Path("auto-fix")
     @Produces(MediaType.TEXT_HTML)
-    public String welcome() {
-        return "<h1>Hello, API 2.0 !</h1><br>Build - 2015-09-25";
+    public String autoFix() {
+        if (AppConfig.admin.enable) {
+            return HTML_0 + CaptureConfig.autoFix() + HTML_1;
+        } else {
+            return HTML_0 + "系统维护未启用" + HTML_1;
+        }
     }
 
 }

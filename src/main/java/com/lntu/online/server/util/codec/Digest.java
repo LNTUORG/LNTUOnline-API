@@ -17,17 +17,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.digest;
+package com.lntu.online.server.util.codec;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DigestCoder {
+public final class Digest {
+
+    public static final Digest MD5 = new Digest("MD5");
+    public static final Digest SHA1 = new Digest("SHA-1");
+    public static final Digest SHA256 = new Digest("SHA-256");
+    public static final Digest SHA384 = new Digest("SHA-384");
+    public static final Digest SHA512 = new Digest("SHA-512");
 
     private final MessageDigest md;
 
-    public DigestCoder(String algorithm) {
+    private Digest(String algorithm) {
         try {
             md = MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
@@ -35,16 +41,16 @@ public class DigestCoder {
         }
     }
 
-    public byte[] getRawDigest(byte[] input) {
+    public byte[] getRaw(byte[] input) {
         return md.digest(input);
     }
 
-    public byte[] getRawDigest(String input) {
-        return getRawDigest(input.getBytes(Charset.forName("UTF-8")));
+    public byte[] getRaw(String input) {
+        return getRaw(input.getBytes(Charset.forName("UTF-8")));
     }
 
-    public String getMessageDigest(byte[] input) {
-        byte[] buffer = getRawDigest(input);
+    public String getMessage(byte[] input) {
+        byte[] buffer = getRaw(input);
         StringBuilder sb = new StringBuilder(buffer.length * 2);
         for (byte b : buffer) {
             sb.append(Character.forDigit((b >>> 4) & 15, 16));
@@ -53,8 +59,8 @@ public class DigestCoder {
         return sb.toString();
     }
 
-    public String getMessageDigest(String input) {
-        return getMessageDigest(input.getBytes(Charset.forName("UTF-8")));
+    public String getMessage(String input) {
+        return getMessage(input.getBytes(Charset.forName("UTF-8")));
     }
 
 }
