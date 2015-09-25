@@ -1,46 +1,34 @@
-# LntuOnline Restful Server API [中文](README_CN.md) #
+# LntuOnline Restful Server API #
 
-A more elegant way to invoke service from LntuOnline.
+更加优雅的教务在线调用接口。
 
-## Home page ##
+########
 
-[http://online.lntu.org](http://online.lntu.org)
+官方网站：[http://online.lntu.org](http://online.lntu.org)
 
-## Requirement ##
+主分支地址：[https://github.com/LNTUORG/LntuOnline-API](https://github.com/LNTUORG/LntuOnline-API)
 
-- [Maven](http://maven.apache.org) or [Gradle](http://gradle.org)
+开发分支地址：[https://github.com/TakWolf/LntuOnline-API](https://github.com/TakWolf/LntuOnline-API)
 
-- [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) 6 or later
+PS：贡献代码，请推送到开发分支上
 
-- Servlet 3.0 or later
+########
 
-- [MySql](http://www.mysql.com) or [MariaDB](https://mariadb.org)
+Android客户端实现：[https://github.com/LNTUORG/LntuOnline-Android](https://github.com/LNTUORG/LntuOnline-Android)
 
-## Package ##
+iOS客户端实现：[https://github.com/LNTUORG/LntuOnline-iOS](https://github.com/LNTUORG/LntuOnline-iOS)
 
-- Maven
+更多构建细节请参考：[wiki](wiki/Home.md)
 
+## Author ##
 
-    $ mvn package
-    
-    /* -> target/LntuOnline-API.war */
+TakWolf
 
+[takwolf@foxmail.com](mailto:takwolf@foxmail.com)
 
-- Gradle
+[http://takwolf.com](http://takwolf.com)
 
-
-    $ gradle war
-    
-    /* -> build/libs/LntuOnline-API.war */
-
-
-## Guide ##
-
-More info please see [wiki](wiki/Home.md).
-
-## License ##
-
-Licensed under General Public License version 2 ([GPLv2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)).
+## License ([GPLv2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)) ##
 
     Copyright (C) 2015-2016 LNTU.ORG (http://lntu.org)
     Copyright (C) 2014-2015 TakWolf <takwolf@foxmail.com>
@@ -58,23 +46,3 @@ Licensed under General Public License version 2 ([GPLv2](http://www.gnu.org/lice
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
-Notice that we have some added requirement that you mast be complyed with if you use this source code :
-
-- Do not publish it as a third party api service. Please contact [author](mailto:takwolf@foxmail.com) before using official api service.
-
-- Do not submit it as a binary in any form for competitions or exhibitions.
-
-## Help us ##
-
-- Contribute to your code on github to make an improve and star it if your like.
-
-- To donate please read [this](https://online.lntu.org/about/).
-
-## Author ##
-
-TakWolf
-
-[takwolf@foxmail.com](mailto:takwolf@foxmail.com)
-
-[http://takwolf.com](http://takwolf.com)
