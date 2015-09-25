@@ -20,6 +20,8 @@
 package com.lntu.online.server.resource;
 
 import com.lntu.online.server.dao.CrashLog;
+import com.lntu.online.server.util.mail.MailSender;
+import org.joda.time.DateTime;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -44,6 +46,14 @@ public class FeedbackResource {
         crashLog.setContent(content);
         crashLog.setCreateAt(new Date());
         crashLog.save();
+
+        String mail =
+                "时间：" + new DateTime().toString() + "<br><br>" +
+                "尾巴：" + userAgent + "<br><br>" +
+                "学号：" + userId + "<br><br>" +
+                content.replace("\n", "<br>");
+
+        MailSender.sendToAdmin(MailSender.LEVEL_CRASH, mail);
     }
 
 }

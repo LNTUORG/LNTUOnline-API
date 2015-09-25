@@ -64,7 +64,7 @@ public class CrashLog extends Model<CrashLog> {
     }
 
     public void setContent(String content) {
-        set("user_agent", content);
+        set("content", content);
     }
 
 }
