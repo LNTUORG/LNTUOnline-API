@@ -10,10 +10,21 @@ Target Server Type    : MariaDB
 Target Server Version : 100017
 File Encoding         : 65001
 
-Date: 2015-05-28 10:29:20
+Date: 2015-09-25 21:48:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `user_id` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `subscribe` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user
@@ -27,5 +38,6 @@ CREATE TABLE `user` (
   `update_at` datetime DEFAULT NULL,
   `expires_at` datetime DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
