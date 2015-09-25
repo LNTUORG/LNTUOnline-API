@@ -17,26 +17,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.digest;
+package com.lntu.online.server.config;
 
-public class SHA384 {
+import java.util.Properties;
 
-    private static final DigestCoder coder = new DigestCoder("SHA-384");
+public final class AdminConfig {
 
-    public static byte[] getRawDigest(byte[] input) {
-        return coder.getRawDigest(input);
-    }
+    public final boolean enable;
+    public final String userId;
+    public final String password;
 
-    public static byte[] getRawDigest(String input) {
-        return coder.getRawDigest(input);
-    }
-
-    public static String getMessageDigest(byte[] input) {
-        return coder.getMessageDigest(input);
-    }
-
-    public static String getMessageDigest(String input) {
-        return coder.getMessageDigest(input);
+    protected AdminConfig(Properties properties) {
+        enable = Boolean.parseBoolean(properties.getProperty("admin.enable", "false"));
+        userId = properties.getProperty("admin.userId", "1000000000");
+        password = properties.getProperty("admin.password", "123");
     }
 
 }
