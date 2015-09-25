@@ -29,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 public class HomeResource {
 
     @GET
+    @Produces(MediaType.TEXT_HTML)
     public String welcome() {
         return "<h1>Hello, API 2.0 !</h1><br>Build - 2015-09-25";
     }
