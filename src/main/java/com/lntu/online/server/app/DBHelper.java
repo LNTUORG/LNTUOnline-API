@@ -24,6 +24,7 @@ import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.dao.Admin;
+import com.lntu.online.server.dao.CrashLog;
 import com.lntu.online.server.dao.User;
 
 public final class DBHelper {
@@ -41,6 +42,7 @@ public final class DBHelper {
         activeRecordPlugin.setDialect(new MysqlDialect());
         activeRecordPlugin.addMapping("user", User.class);
         activeRecordPlugin.addMapping("admin", Admin.class);
+        activeRecordPlugin.addMapping("crash_log", CrashLog.class);
         activeRecordPlugin.start();
     }
 
