@@ -17,26 +17,46 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package com.lntu.online.server.util.digest;
+package com.lntu.online.server.dao;
 
-public class MD5 {
+import com.jfinal.plugin.activerecord.Model;
 
-    private static final DigestCoder coder = new DigestCoder("MD5");
+import java.util.List;
 
-    public static byte[] getRawDigest(byte[] input) {
-        return coder.getRawDigest(input);
+public class Admin extends Model<Admin> {
+
+    public static final Admin dao = new Admin();
+
+    public Admin findByUserId(String userId) {
+        return dao.findById(userId, "user_id");
     }
 
-    public static byte[] getRawDigest(String input) {
-        return coder.getRawDigest(input);
+    public List<Admin> findBySubscribe() {
+        return dao.find("select * from admin where subscribe = ?", 1);
     }
 
-    public static String getMessageDigest(byte[] input) {
-        return coder.getMessageDigest(input);
+    public String getUserId() {
+        return getStr("user_id");
     }
 
-    public static String getMessageDigest(String input) {
-        return coder.getMessageDigest(input);
+    public void setUserId(String userId) {
+        set("user_id", userId);
+    }
+
+    public String getEmail() {
+        return getStr("email");
+    }
+
+    public void setEmail(String email) {
+        set("email", email);
+    }
+
+    public boolean isSubscribe() {
+        return getBoolean("subscribe");
+    }
+
+    public void setSubscribe(boolean b) {
+        set("subscribe", b);
     }
 
 }

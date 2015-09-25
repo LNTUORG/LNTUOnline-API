@@ -34,6 +34,7 @@ public final class AppConfig {
     public static final String secretKey;
     public static final DbConfig db;
     public static final MailConfig mail;
+    public static final AdminConfig admin;
 
     static {
         try {
@@ -42,6 +43,7 @@ public final class AppConfig {
             secretKey = properties.getProperty("secretKey", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
             db = new DbConfig(properties);
             mail = new MailConfig(properties);
+            admin = new AdminConfig(properties);
         } catch (IOException e) {
             throw new RuntimeException(CONFIG_NAME + " load faild.", e);
         }

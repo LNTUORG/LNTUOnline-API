@@ -20,11 +20,39 @@
 package com.lntu.online.server.util.mail;
 
 import com.lntu.online.server.config.AppConfig;
+import com.lntu.online.server.dao.Admin;
+import com.lntu.online.server.util.ThreadUtils;
+
+import java.util.List;
 
 public class MailSender {
 
+    public static final String LEVEL_RUNNING = "【教务在线2.0】运行日志";
+    public static final String LEVEL_LOG = "【教务在线2.0】维护日志";
+    public static final String LEVEL_ALARM = "【教务在线2.0】系统警报";
+    public static final String LEVEL_CRASH = "【教务在线2.0】客户端异常";
+    public static final String LEVEL_ADVICE = "【教务在线2.0】用户反馈";
+
     public static void send(String to, String subject, String content) {
-        Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
+        if (AppConfig.mail.enable) {
+            Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
+        }
+    }
+
+    public static void sendToAdmin(final String level, final String content) {
+        if (AppConfig.mail.enable) {
+            ThreadUtils.execute(new Runnable() {
+
+                @Override
+                public void run() {
+                    List<Admin> adminList = Admin.dao.findBySubscribe();
+                    for (Admin admin : adminList) {
+                        send(admin.getEmail(), level, content);
+                    }
+                }
+
+            });
+        }
     }
 
 }
