@@ -19,11 +19,20 @@
 
 package com.lntu.online.server.resource;
 
+import com.lntu.online.server.app.Authorization;
+import com.lntu.online.server.capture.StudentCapture;
+import com.lntu.online.server.dao.Advice;
 import com.lntu.online.server.dao.CrashLog;
+import com.lntu.online.server.dao.User;
+import com.lntu.online.server.model.Student;
+import com.lntu.online.server.model.UserType;
+import com.lntu.online.server.util.ThreadUtils;
 import com.lntu.online.server.util.mail.MailSender;
 import org.joda.time.DateTime;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
 import java.util.UUID;
@@ -54,6 +63,47 @@ public class FeedbackResource {
                 content.replace("\n", "<br>");
 
         MailSender.sendToAdmin(MailSender.LEVEL_CRASH, mail);
+    }
+
+    @POST
+    @Path("advice")
+    @Authorization
+    public void advice(
+            @Context ContainerRequestContext requestContext,
+            @HeaderParam("User-Agent") final String userAgent,
+            @FormParam("content") final String content
+    ) {
+        final User user = (User) requestContext.getProperty("user");
+
+        Advice advice = new Advice();
+        advice.setId(UUID.randomUUID().toString());
+        advice.setUserId(user.getId());
+        advice.setUserAgent(userAgent);
+        advice.setContent(content);
+        advice.setCreateAt(new Date());
+        advice.save();
+
+        if (user.getType() == UserType.STUDENT) {
+            ThreadUtils.execute(new Runnable() {
+
+                @Override
+                public void run() {
+                    Student student = StudentCapture.getStudent(user.getId(), user.getPassword());
+
+                    String mail = "" +
+                            "时间：" + new DateTime().toString() + "<br><br>" +
+                            "尾巴：" + userAgent + "<br><br>" +
+                            "学号：" + student.getId() + "<br><br>" +
+                            "姓名：" + student.getName() + "<br><br>" +
+                            "学院：" + student.getCollege() + "<br><br>" +
+                            "班级：" + student.getClassInfo() + "<br><br>" +
+                            content.replace("\n", "<br>");
+
+                    MailSender.sendToAdmin(MailSender.LEVEL_ADVICE, mail);
+                }
+
+            });
+        }
     }
 
 }
