@@ -49,7 +49,7 @@ public class ClassTableCapture {
         classTable.setStudentId(userId);
         classTable.setYear(year);
         classTable.setTerm(term);
-        classTable.setFirstWeekMondayAt(AppConfig.firstWeekMondayAt);
+        classTable.setFirstWeekMondayAt(AppConfig.getFirstWeekMonday(year, term));
 
         List<ClassTable.Course> courseList = new ArrayList<ClassTable.Course>();
 
