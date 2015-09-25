@@ -22,17 +22,24 @@
 
 打开config.properties文件配置相关信息：
 
-    # 数据库连接信息
-    jdbcUrl=jdbc:mysql://localhost:3306/lntuonline
-    username=root
-    password=123
-    driverClass=com.mysql.jdbc.Driver # MySql数据库驱动，如果是MariaDB数据库则是 driverClass=org.mariadb.jdbc.Driver
+    firstWeekMonday.2015_1=2015-03-09T00:00:00.000+08:00
     
-    # 数据库数据加密密钥，请妥善保管这个文件防止泄露
     secretKey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
     
-    # 当前学期的第一周周一日期，该值会影响课表的数据显示
-    firstWeekMondayAt=2015-3-9
+    db.jdbcUrl=jdbc:mysql://localhost:3306/lntuonline
+    db.driverClass=com.mysql.jdbc.Driver
+    db.username=root
+    db.password=123
+    
+    mail.enable=false
+    mail.smtp=SMTP.lntu.org
+    mail.from=online@lntu.org
+    mail.username=online@lntu.org
+    mail.password=123
+    
+    admin.enable=false
+    admin.userId=1000000
+    admin.password=123
 
 ## 打包部署 ##
 
