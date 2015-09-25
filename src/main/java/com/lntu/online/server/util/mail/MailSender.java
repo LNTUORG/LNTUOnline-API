@@ -30,6 +30,8 @@ public class MailSender {
     public static final String LEVEL_RUNNING = "【教务在线2.0】运行日志";
     public static final String LEVEL_LOG = "【教务在线2.0】维护日志";
     public static final String LEVEL_ALARM = "【教务在线2.0】系统警报";
+    public static final String LEVEL_CRASH = "【教务在线2.0】客户端异常";
+    public static final String LEVEL_ADVICE = "【教务在线2.0】用户反馈";
 
     public static void send(String to, String subject, String content) {
         if (AppConfig.mail.enable) {
