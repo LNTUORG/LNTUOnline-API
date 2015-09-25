@@ -23,6 +23,7 @@ import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.dao.Admin;
 import com.lntu.online.server.util.ThreadUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class MailSender {
@@ -34,8 +35,13 @@ public class MailSender {
     public static final String LEVEL_ADVICE = "【教务在线2.0】用户反馈";
 
     public static void send(String to, String subject, String content) {
-        if (AppConfig.mail.enable) {
-            Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
+
+        try {
+            if (AppConfig.mail.enable) {
+                 Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 
