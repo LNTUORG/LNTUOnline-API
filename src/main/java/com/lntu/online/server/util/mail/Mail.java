@@ -19,6 +19,7 @@
 
 package com.lntu.online.server.util.mail;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.BodyPart;
@@ -30,6 +31,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 public class Mail {
 
@@ -94,7 +96,7 @@ public class Mail {
     public boolean setSubject(String mailSubject) {
         System.out.println("定义邮件主题！");
         try {
-            mimeMsg.setSubject("" + mailSubject); // TODO 这里有编码问题
+            mimeMsg.setSubject(mailSubject); // TODO 这里有编码问题
             return true;
         } catch (Exception e) {
             System.err.println("定义邮件主题发生错误！");
@@ -173,10 +175,10 @@ public class Mail {
 
     /*调用sendOut方法完成发送*/
     public static boolean sendAndCc(String smtp, String from, String to, String copyto,
-                                    String subject, String content, String username, String password) {
+                                    String subject, String content, String username, String password) throws UnsupportedEncodingException {
         Mail theMail = new Mail(smtp);
         theMail.setNeedAuth(true); // 验证
-        if (!theMail.setSubject(subject))
+        if (!theMail.setSubject(MimeUtility.encodeText(subject,MimeUtility.mimeCharset("gb2312"),null)))
             return false;
         if (!theMail.setBody(content))
             return false;
