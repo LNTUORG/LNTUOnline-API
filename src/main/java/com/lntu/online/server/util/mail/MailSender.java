@@ -27,6 +27,7 @@ import java.util.List;
 
 public class MailSender {
 
+    public static final String LEVEL_RUNNING = "【教务在线2.0】运行日志";
     public static final String LEVEL_LOG = "【教务在线2.0】维护日志";
     public static final String LEVEL_ALARM = "【教务在线2.0】系统警报";
 
@@ -37,17 +38,19 @@ public class MailSender {
     }
 
     public static void sendToAdmin(final String level, final String content) {
-        ThreadUtils.execute(new Runnable() {
+        if (AppConfig.mail.enable) {
+            ThreadUtils.execute(new Runnable() {
 
-            @Override
-            public void run() {
-                List<Admin> adminList = Admin.dao.findBySubscribe();
-                for (Admin admin : adminList) {
-                    send(admin.getEmail(), level, content);
+                @Override
+                public void run() {
+                    List<Admin> adminList = Admin.dao.findBySubscribe();
+                    for (Admin admin : adminList) {
+                        send(admin.getEmail(), level, content);
+                    }
                 }
-            }
 
-        });
+            });
+        }
     }
 
 }
