@@ -20,6 +20,7 @@
 package com.lntu.online.server.resource;
 
 import com.lntu.online.server.capture.CookieShip;
+import com.lntu.online.server.dao.LoginTokenInfo;
 import com.lntu.online.server.dao.User;
 import com.lntu.online.server.exception.ArgsErrorException;
 import com.lntu.online.server.exception.PasswordErrorException;
@@ -30,6 +31,7 @@ import com.lntu.online.server.util.TextUtils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Calendar;
 import java.util.Date;
 
 @Path("account")
@@ -73,16 +75,20 @@ public class AccountResource {
             }
             user.setPassword(password); //更新密码
         }
-        // 更新User-Agent
+        // 更新User
         user.setUserAgent(userAgent);
+        user.setUpdateAt(new Date());
+        user.update();
+        // 生成过期日期
+        Calendar time = Calendar.getInstance();
+        time.add(Calendar.MONTH, 1);
+        Date expiresAt = time.getTime();
         // 生成LoginInfo
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.setUserId(user.getId());
         loginInfo.setUserType(user.getType());
-        loginInfo.setLoginToken(user.renewLoginToken()); // 这一步会更新LoginToken
-        loginInfo.setExpiresAt(user.getExpiresAt());
-        // 保存user并返还loginToken
-        user.update();
+        loginInfo.setLoginToken(LoginTokenInfo.buildLoginToken(user, expiresAt));
+        loginInfo.setExpiresAt(expiresAt);
         return loginInfo;
     }
 
