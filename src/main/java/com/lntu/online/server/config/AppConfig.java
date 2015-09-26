@@ -31,6 +31,7 @@ public final class AppConfig {
 
     private static final Properties properties;
 
+    public static final String serverName;
     public static final String secretKey;
     public static final DbConfig db;
     public static final MailConfig mail;
@@ -40,6 +41,7 @@ public final class AppConfig {
         try {
             properties = new Properties();
             properties.load(AppConfig.class.getClassLoader().getResourceAsStream(CONFIG_NAME));
+            serverName = properties.getProperty("serverName", "未命名");
             secretKey = properties.getProperty("secretKey", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
             db = new DbConfig(properties);
             mail = new MailConfig(properties);

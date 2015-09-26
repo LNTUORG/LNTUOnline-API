@@ -28,14 +28,13 @@ import java.util.List;
 
 public class MailSender {
 
-    public static final String LEVEL_RUNNING = "【教务在线2.0】运行日志";
-    public static final String LEVEL_LOG = "【教务在线2.0】维护日志";
-    public static final String LEVEL_ALARM = "【教务在线2.0】系统警报";
-    public static final String LEVEL_CRASH = "【教务在线2.0】客户端异常";
-    public static final String LEVEL_ADVICE = "【教务在线2.0】用户反馈";
+    public static final String LEVEL_RUNNING = "运行日志";
+    public static final String LEVEL_LOG = "维护日志";
+    public static final String LEVEL_ALARM = "系统警报";
+    public static final String LEVEL_CRASH = "客户端异常";
+    public static final String LEVEL_ADVICE = "用户反馈";
 
     public static void send(String to, String subject, String content) {
-
         try {
             if (AppConfig.mail.enable) {
                  Mail.sendAndCc(AppConfig.mail.smtp, AppConfig.mail.from, to, "", subject, content, AppConfig.mail.username, AppConfig.mail.password);
@@ -53,7 +52,7 @@ public class MailSender {
                 public void run() {
                     List<Admin> adminList = Admin.dao.findBySubscribe();
                     for (Admin admin : adminList) {
-                        send(admin.getEmail(), level, content);
+                        send(admin.getEmail(), "【教务在线2.0 - " + AppConfig.serverName + "】 " + level, content);
                     }
                 }
 
