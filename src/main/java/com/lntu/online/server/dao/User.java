@@ -39,7 +39,12 @@ public class User extends Model<User> {
         if (loginTokenInfo == null || new Date().after(loginTokenInfo.getExpiresAt())) {
             return null;
         } else {
-            return dao.findById(loginTokenInfo.getUserId());
+            User user = dao.findById(loginTokenInfo.getUserId());
+            if (user != null && user.getPasswordMd5().equals(loginTokenInfo.getPasswordMd5())) {
+                return user;
+            } else {
+                return null;
+            }
         }
     }
 
@@ -65,6 +70,10 @@ public class User extends Model<User> {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public String getPasswordMd5() {
+        return Digest.MD5.getMessage(getPassword());
     }
 
     public void setPassword(String password) {
