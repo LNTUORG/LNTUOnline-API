@@ -23,14 +23,12 @@ import com.lntu.online.server.config.AppConfig;
 import com.lntu.online.server.util.codec.DES3;
 import com.lntu.online.server.util.codec.Digest;
 import com.lntu.online.server.util.gson.GsonWrapper;
-import com.sun.istack.internal.Nullable;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class LoginTokenInfo {
 
-    @Nullable
     public static LoginTokenInfo from(String loginToken) {
         try {
             return GsonWrapper.gson.fromJson(DES3.decrypt(Digest.MD5.getMessage(AppConfig.secretKey), loginToken), LoginTokenInfo.class);
