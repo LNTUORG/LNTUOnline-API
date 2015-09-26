@@ -35,10 +35,11 @@ public class User extends Model<User> {
     public static final User dao = new User();
 
     public User findByLoginToken(String loginToken) {
-        if (TextUtils.isEmpty(loginToken)) {
+        LoginTokenInfo loginTokenInfo = LoginTokenInfo.from(loginToken);
+        if (loginTokenInfo == null || new Date().after(loginTokenInfo.getExpiresAt())) {
             return null;
         } else {
-            return dao.findFirst("select * from user where login_token = ?", Digest.MD5.getMessage(loginToken));
+            return dao.findById(loginTokenInfo.getUserId());
         }
     }
 
@@ -56,14 +57,6 @@ public class User extends Model<User> {
 
     public void setId(String id) {
         set("id", id);
-    }
-
-    public String getLoginTokenMD5() {
-        return getStr("login_token");
-    }
-
-    public void setLoginToken(String loginToken) {
-        set("login_token", Digest.MD5.getMessage(loginToken));
     }
 
     public String getPassword() {
@@ -120,28 +113,6 @@ public class User extends Model<User> {
 
     public void setUpdateAt(Date time) {
         set("update_at", time);
-    }
-
-    public Date getExpiresAt() {
-        return getDate("expires_at");
-    }
-
-    public void setExpiresAt(Date time) {
-        set("expires_at", time);
-    }
-
-    public boolean isExpires() {
-        return new Date().after(getExpiresAt());
-    }
-
-    public String renewLoginToken() {
-        String loginToken = UUID.randomUUID().toString();
-        setLoginToken(loginToken);
-        Calendar time = Calendar.getInstance();
-        setUpdateAt(time.getTime());
-        time.add(Calendar.MONTH, 1);
-        setExpiresAt(time.getTime());
-        return loginToken;
     }
 
 }
