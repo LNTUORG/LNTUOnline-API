@@ -43,6 +43,7 @@ public class LoginTokenInfo {
         LoginTokenInfo loginTokenInfo = new LoginTokenInfo();
         loginTokenInfo.setUUID(UUID.randomUUID().toString());
         loginTokenInfo.setUserId(user.getId());
+        loginTokenInfo.setPasswordMd5(user.getPasswordMd5());
         loginTokenInfo.setExpiresAt(expiresAt);
         try {
             return DES3.encrypt(Digest.MD5.getMessage(AppConfig.secretKey), GsonWrapper.gson.toJson(loginTokenInfo));
@@ -54,6 +55,8 @@ public class LoginTokenInfo {
     private String uuid;
 
     private String userId;
+
+    private String passwordMd5;
 
     private Date expiresAt;
 
@@ -71,6 +74,14 @@ public class LoginTokenInfo {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPasswordMd5() {
+        return passwordMd5;
+    }
+
+    public void setPasswordMd5(String passwordMd5) {
+        this.passwordMd5 = passwordMd5;
     }
 
     public Date getExpiresAt() {
