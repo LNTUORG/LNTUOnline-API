@@ -21,7 +21,6 @@ package com.lntu.online.server.app;
 
 import com.lntu.online.server.capture.CaptureConfig;
 import com.lntu.online.server.config.AppConfig;
-import com.lntu.online.server.util.mail.MailSender;
 import org.joda.time.DateTime;
 
 import javax.servlet.ServletContextEvent;
@@ -39,7 +38,6 @@ public class ApplicationListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         DBHelper.start();
-        MailSender.sendToAdmin(MailSender.LEVEL_RUNNING, "启动时间：" + new DateTime().toString() + "<br>远程抓取地址：" + CaptureConfig.getServerUrl());
         if (AppConfig.admin.enable) {
             timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -55,7 +53,6 @@ public class ApplicationListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         DBHelper.stop();
-        MailSender.sendToAdmin(MailSender.LEVEL_RUNNING, "停止时间：" + new DateTime().toString());
         timer.cancel();
     }
 
