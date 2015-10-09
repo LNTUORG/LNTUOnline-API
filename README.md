@@ -2,17 +2,7 @@
 
 更加优雅的教务在线调用接口。
 
-########
-
 官方网站：[http://online.lntu.org](http://online.lntu.org)
-
-主分支地址：[https://github.com/LNTUORG/LntuOnline-API](https://github.com/LNTUORG/LntuOnline-API)
-
-开发分支地址：[https://github.com/TakWolf/LntuOnline-API](https://github.com/TakWolf/LntuOnline-API)
-
-PS：贡献代码，请推送到开发分支上
-
-########
 
 Android客户端实现：[https://github.com/LNTUORG/LntuOnline-Android](https://github.com/LNTUORG/LntuOnline-Android)
 
