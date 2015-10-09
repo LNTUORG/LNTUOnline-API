@@ -38,7 +38,7 @@ public class UnpassCourseCapture {
         Elements trs = doc.getElementsByTag("table").get(2).child(0).getElementsByTag("tr");
         trs.remove(0);
         for (Element tr : trs) {
-            if ("\u6b63\u5e38\u8003\u8bd5".equals(tr.child(7).html().replace("&nbsp;", ""))) { // Unicode=正常考试
+            if ("\u6b63\u5e38\u8003\u8bd5".equals(tr.child(7).html().replace("&nbsp;", "")) && !("\u6b63\u5e38".equals(tr.child(6).html().replace("&nbsp;", "")) && TextUtils.isEmpty(tr.child(3).html().replace("&nbsp;", "")))) { // Unicode=正常考试，正常
                 UnpassCourse course = new UnpassCourse();
                 course.setStudentId(userId);
                 course.setNum(tr.child(0).html().replace("&nbsp;", ""));
