@@ -6,7 +6,7 @@
 
 - [Maven](http://maven.apache.org) 或者 [Gradle](http://gradle.org)
 
-- [JDK 6](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)
+- [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)
 
 - [Tomcat 8](http://tomcat.apache.org/download-80.cgi) 或者 [Jetty 9](http://www.eclipse.org/jetty) 或者其他容器
 
