@@ -21,7 +21,6 @@ package org.lntu.online.server.app;
 
 import org.lntu.online.server.capture.CaptureConfig;
 import org.lntu.online.server.config.AppConfig;
-import org.joda.time.DateTime;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -46,7 +45,7 @@ public class ApplicationListener implements ServletContextListener {
                     CaptureConfig.autoFix();
                 }
 
-            }, new Date(), 1000 * 60 * 60);
+            }, new Date(), 1000 * 60 * 10);
         }
     }
 
