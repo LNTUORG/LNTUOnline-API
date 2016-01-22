@@ -135,6 +135,7 @@ public class StudentCapture {
         }
         student.setFamilys(familys);
 
+        /*
         // #处罚情况 - 这个不一定有，要判断#
         if (tables.size() >= 10) {
             Elements trs5 = tables.get(9).child(0).getElementsByTag("tr");
@@ -153,6 +154,7 @@ public class StudentCapture {
             }
             student.setDisciplinaryActions(actions);
         }
+        */
 
         // 返回数据
         return student;
