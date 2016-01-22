@@ -2,15 +2,15 @@
 Navicat MariaDB Data Transfer
 
 Source Server         : root
-Source Server Version : 100017
+Source Server Version : 100021
 Source Host           : localhost:3306
 Source Database       : lntuonline
 
 Target Server Type    : MariaDB
-Target Server Version : 100017
+Target Server Version : 100021
 File Encoding         : 65001
 
-Date: 2015-09-26 00:23:19
+Date: 2016-01-22 17:48:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,5 +65,20 @@ CREATE TABLE `user` (
   `expires_at` datetime DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `user_agent` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `user_detail`;
+CREATE TABLE `user_detail` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `class_info` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  `college` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

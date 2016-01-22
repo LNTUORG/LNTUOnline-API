@@ -20,11 +20,14 @@
 package org.lntu.online.server.resource;
 
 import org.lntu.online.server.capture.CookieShip;
+import org.lntu.online.server.capture.StudentCapture;
 import org.lntu.online.server.dao.User;
+import org.lntu.online.server.dao.UserDetail;
 import org.lntu.online.server.exception.ArgsErrorException;
 import org.lntu.online.server.exception.PasswordErrorException;
 import org.lntu.online.server.exception.RemoteAuthorizedException;
 import org.lntu.online.server.model.LoginInfo;
+import org.lntu.online.server.model.Student;
 import org.lntu.online.server.model.UserType;
 import org.lntu.online.server.util.TextUtils;
 
@@ -58,7 +61,31 @@ public class AccountResource {
             }
         } else { // 非管理员用户，则远程验证普通用户
             try {
-                CookieShip.value(userId, password);
+                if (userId.length() == 10) { // 验证学生
+                    Student student = StudentCapture.getStudent(userId, password);
+                    UserDetail userDetail = UserDetail.dao.findById(userId);
+                    if (userDetail == null) {
+                        userDetail = new UserDetail();
+                        userDetail.setId(student.getId());
+                        userDetail.setName(student.getName());
+                        userDetail.setClassInfo(student.getClassInfo());
+                        userDetail.setCollege(student.getCollege());
+                        userDetail.setSex(student.getSex());
+                        userDetail.setUpdateAt(new Date());
+                        userDetail.setType(UserType.STUDENT);
+                        userDetail.save();
+                    } else {
+                        userDetail.setName(student.getName());
+                        userDetail.setClassInfo(student.getClassInfo());
+                        userDetail.setCollege(student.getCollege());
+                        userDetail.setSex(student.getSex());
+                        userDetail.setUpdateAt(new Date());
+                        userDetail.setType(UserType.STUDENT);
+                        userDetail.update();
+                    }
+                } else { // 验证教师
+                    CookieShip.value(userId, password);
+                }
             } catch (RemoteAuthorizedException e) {
                 throw new PasswordErrorException();
             }
