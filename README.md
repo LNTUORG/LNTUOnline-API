@@ -6,15 +6,15 @@
 
 感谢支持！！
 
-# LntuOnline Restful Server API #
+# LNTUOnline API #
 
 更加优雅的教务在线调用接口。
 
 官方网站：[http://online.lntu.org](http://online.lntu.org)
 
-Android客户端实现：[https://github.com/LNTUORG/LntuOnline-Android](https://github.com/LNTUORG/LntuOnline-Android)
+Android客户端：[LNTUOnline-Android](https://github.com/LNTUORG/LNTUOnline-Android)
 
-iOS客户端实现：[https://github.com/LNTUORG/LntuOnline-iOS](https://github.com/LNTUORG/LntuOnline-iOS)
+iOS客户端：[LNTUOnline-iOS](https://github.com/LNTUORG/LNTUOnline-iOS)
 
 更多构建细节请参考：[wiki](wiki/Home.md)
 
