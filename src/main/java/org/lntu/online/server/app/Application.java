@@ -27,7 +27,7 @@ import javax.ws.rs.ApplicationPath;
 @ApplicationPath("/*")
 public class Application extends ResourceConfig {
 
-    private static final String ROOT_PACKAGES = "com.lntu.online.server";
+    private static final String ROOT_PACKAGES = "org.lntu.online.server";
 
     public Application() {
         packages(ROOT_PACKAGES);
