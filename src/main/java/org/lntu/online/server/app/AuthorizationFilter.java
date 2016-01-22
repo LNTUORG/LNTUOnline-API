@@ -41,7 +41,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String loginToken = requestContext.getHeaderString("Authorization");
         User user = User.dao.findByLoginToken(loginToken);
-        if (user == null) {
+        if (user == null || user.isExpires()) {
             throw new NotAuthorizedException(
                     Response.status(401).entity(
                             new ErrorInfo(ErrorCode.AUTH_ERROR, "Authorization is null or is expires.")

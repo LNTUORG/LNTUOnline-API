@@ -26,23 +26,19 @@ import org.lntu.online.server.util.TextUtils;
 import org.lntu.online.server.util.codec.DES3;
 import org.lntu.online.server.util.codec.Digest;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 public class User extends Model<User> {
 
     public static final User dao = new User();
 
     public User findByLoginToken(String loginToken) {
-        LoginTokenInfo loginTokenInfo = LoginTokenInfo.from(loginToken);
-        if (loginTokenInfo == null || new Date().after(loginTokenInfo.getExpiresAt())) {
+        if (TextUtils.isEmpty(loginToken)) {
             return null;
         } else {
-            User user = dao.findById(loginTokenInfo.getUserId());
-            if (user != null && user.getPasswordMd5().equals(loginTokenInfo.getPasswordMd5())) {
-                return user;
-            } else {
-                return null;
-            }
+            return dao.findFirst("select * from user where login_token = ?", Digest.MD5.getMessage(loginToken));
         }
     }
 
@@ -62,16 +58,20 @@ public class User extends Model<User> {
         set("id", id);
     }
 
+    public String getLoginTokenMD5() {
+        return getStr("login_token");
+    }
+
+    public void setLoginToken(String loginToken) {
+        set("login_token", Digest.MD5.getMessage(loginToken));
+    }
+
     public String getPassword() {
         try {
             return DES3.decrypt(Digest.SHA256.getMessage(AppConfig.secretKey), getStr("password"));
         } catch (Exception e) {
             return "";
         }
-    }
-
-    public String getPasswordMd5() {
-        return Digest.MD5.getMessage(getPassword());
     }
 
     public void setPassword(String password) {
@@ -120,6 +120,28 @@ public class User extends Model<User> {
 
     public void setUpdateAt(Date time) {
         set("update_at", time);
+    }
+
+    public Date getExpiresAt() {
+        return getDate("expires_at");
+    }
+
+    public void setExpiresAt(Date time) {
+        set("expires_at", time);
+    }
+
+    public boolean isExpires() {
+        return new Date().after(getExpiresAt());
+    }
+
+    public String renewLoginToken() {
+        String loginToken = UUID.randomUUID().toString();
+        setLoginToken(loginToken);
+        Calendar time = Calendar.getInstance();
+        setUpdateAt(time.getTime());
+        time.add(Calendar.MONTH, 1);
+        setExpiresAt(time.getTime());
+        return loginToken;
     }
 
 }
