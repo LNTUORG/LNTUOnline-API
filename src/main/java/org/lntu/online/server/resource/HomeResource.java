@@ -31,7 +31,7 @@ public class HomeResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String welcome() {
-        return "<h1>Hello, API 2.0 !</h1><br>Build - 2016-01-22 #2";
+        return "<h1>Hello, API 2.0 !</h1><br>Build - 2016-02-17";
     }
 
 }
