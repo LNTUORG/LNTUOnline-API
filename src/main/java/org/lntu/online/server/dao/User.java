@@ -23,14 +23,21 @@ import com.jfinal.plugin.activerecord.Model;
 import org.lntu.online.server.config.AppConfig;
 import org.lntu.online.server.model.UserType;
 import org.lntu.online.server.util.TextUtils;
-import org.lntu.online.server.util.codec.DES3;
+import org.lntu.online.server.util.codec.Crypto;
 import org.lntu.online.server.util.codec.Digest;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
 public class User extends Model<User> {
+
+    private static SecretKey SECRET = Crypto.AES.generateSecret(Digest.SHA256.getRaw(AppConfig.secretKey));
+    private static IvParameterSpec IV = Crypto.AES.generateIV(Digest.MD5.getRaw(AppConfig.secretKey));
 
     public static final User dao = new User();
 
@@ -38,7 +45,7 @@ public class User extends Model<User> {
         if (TextUtils.isEmpty(loginToken)) {
             return null;
         } else {
-            return dao.findFirst("select * from user where login_token = ?", Digest.MD5.getMessage(loginToken));
+            return dao.findFirst("select * from user where login_token = ?", loginToken);
         }
     }
 
@@ -58,17 +65,17 @@ public class User extends Model<User> {
         set("id", id);
     }
 
-    public String getLoginTokenMD5() {
+    public String getLoginToken() {
         return getStr("login_token");
     }
 
     public void setLoginToken(String loginToken) {
-        set("login_token", Digest.MD5.getMessage(loginToken));
+        set("login_token", loginToken);
     }
 
     public String getPassword() {
         try {
-            return DES3.decrypt(Digest.SHA256.getMessage(AppConfig.secretKey), getStr("password"));
+            return new String(Crypto.AES.decrypt(SECRET, IV, Base64.getDecoder().decode(getStr("password"))), StandardCharsets.UTF_8);
         } catch (Exception e) {
             return "";
         }
@@ -76,7 +83,7 @@ public class User extends Model<User> {
 
     public void setPassword(String password) {
         try {
-            set("password", DES3.encrypt(Digest.SHA256.getMessage(AppConfig.secretKey), password));
+            set("password", Base64.getEncoder().encodeToString(Crypto.AES.encrypt(SECRET, IV, password.getBytes(StandardCharsets.UTF_8))));
         } catch (Exception e) {
             set("password", "");
         }

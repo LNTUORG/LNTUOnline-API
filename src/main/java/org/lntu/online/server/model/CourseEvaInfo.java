@@ -19,9 +19,9 @@
 
 package org.lntu.online.server.model;
 
-import org.lntu.online.server.util.codec.Base64;
-
 import javax.xml.bind.annotation.XmlRootElement;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @XmlRootElement
 public class CourseEvaInfo {
@@ -88,7 +88,7 @@ public class CourseEvaInfo {
 
     public String getUrl() {
         try {
-            return Base64.decode(getEvaKey());
+            return new String(Base64.getDecoder().decode(getEvaKey()), StandardCharsets.UTF_8);
         } catch (Exception e) {
             return "";
         }
@@ -96,7 +96,7 @@ public class CourseEvaInfo {
 
     public void setUrl(String url) {
         try {
-            setEvaKey(Base64.encode(url));
+            setEvaKey(Base64.getEncoder().encodeToString(url.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception e) {
             setEvaKey("");
         }
@@ -104,7 +104,7 @@ public class CourseEvaInfo {
 
     public static String getUrlFormKey(String key) {
         try {
-            return Base64.decode(key);
+            return new String(Base64.getDecoder().decode(key), StandardCharsets.UTF_8);
         } catch (Exception e) {
             return "";
         }
